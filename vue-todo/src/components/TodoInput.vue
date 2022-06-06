@@ -12,7 +12,7 @@ export default {
       newTodoItem: "",
     }
   },
-r
+
   methods: {
     addTodo: function () {
       console.log(this.newTodoItem);
