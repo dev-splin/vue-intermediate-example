@@ -1,9 +1,10 @@
 <template>
   <div>
     <ul>
-      <li v-for="todoItem in todoItems" :key="todoItem" class="shadow">
-        {{ todoItem }}
-        <span class="removeBtn" @click="removeTodo">
+      <li v-for="(todoItem, index) in todoItems" :key="todoItem.item" class="shadow">
+        <i class="checkBtn fa-solid fa-check" :class="{checkBtnCompleted: todoItem.completed}" @click="toggleComplete(todoItem, index)"></i>
+        <span :class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
+        <span class="removeBtn" @click="removeTodo(todoItem, index)">
           <i class="fa-solid fa-trash-can"></i>
         </span>
       </li>
@@ -13,25 +14,35 @@
 
 <script>
 export default {
-  data() {
+  data: function () {
     return {
       todoItems: [],
     }
   },
 
-  created() {
+  created: function () {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
-        this.todoItems.push(localStorage.key(i));
+        const obj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+
+        this.todoItems.push(obj);
       }
     }
   },
 
-  methods() {
-    removeTodo: function() {
+  methods: {
+    removeTodo: function (todoItem, index) {
+      console.log(todoItem, index);
+      localStorage.removeItem(todoItem);
+      this.todoItems.splice(index, 1);
+    },
 
-    }
-  }
+    toggleComplete: function (todoItem) {
+      todoItem.completed = !todoItem.completed;
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    },
+  },
 }
 </script>
 
@@ -42,6 +53,7 @@ ul {
   margin-top: 0;
   text-align: left;
 }
+
 li {
   display: flex;
   min-height: 50px;
@@ -52,27 +64,34 @@ li {
   background: white;
   border-radius: 5px;
 }
+
 .checkBtn {
   line-height: 45px;
   color: #62acde;
   margin-right: 5px;
 }
+
 .checkBtnCompleted {
   color: #b3adad;
 }
+
 .textCompleted {
   text-decoration: line-through;
   color: #b3adad;
 }
+
 .removeBtn {
   margin-left: auto;
   color: #de4343;
 }
+
 /* transition css */
 .list-enter-active, .list-leave-active {
   transition: all 1s;
 }
-.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */
+{
   opacity: 0;
   transform: translateY(30px);
 }
