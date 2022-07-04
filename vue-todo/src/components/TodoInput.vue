@@ -4,39 +4,60 @@
     <span class="addContainer">
       <i class="fa-solid fa-plus addBtn" @click="addTodo"></i>
     </span>
+
+    <Modal v-if="showModal">
+      <h3 slot="header">
+        {{ modalHeader }}
+        <i class="fa-solid fa-xmark" @click="showModal = false"></i>
+      </h3>
+
+      <div slot="body">
+        {{ modalBody }}
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from "@/common/Modal";
+
 export default {
+  components: {
+    Modal
+  },
+
   data: function () {
     return {
-      newTodoItem: "",
+      newTodoItem: '',
+      modalHeader: '경고!',
+      modalBody: '',
+      showModal: false,
     }
   },
 
   methods: {
     addTodo: function () {
       if(!this.validateItem()) {
+        this.showModal = true;
         return;
       }
 
-      this.$emit("addTodoItem", this.newTodoItem);
+      this.$emit('addTodoItem', this.newTodoItem);
       this.clearInput();
     },
 
     clearInput: function () {
-      this.newTodoItem = "";
+      this.newTodoItem = '';
     },
 
     validateItem() {
       if (this.newTodoItem === '') {
-        alert('값이 없습니다.');
+        this.modalBody = '값이 없습니다.';
         return false;
       }
 
       return true;
-    }
+    },
   }
 }
 </script>
