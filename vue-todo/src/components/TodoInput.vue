@@ -17,17 +17,11 @@ export default {
 
   methods: {
     addTodo: function () {
-      if (this.newTodoItem === '') {
-        alert('값이 없습니다.');
+      if(!this.validateItem()) {
         return;
       }
 
-      let obj = {
-        completed: false,
-        item: this.newTodoItem,
-      };
-
-      localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+      this.$emit("addTodoItem", this.newTodoItem);
       this.clearInput();
     },
 
@@ -35,6 +29,14 @@ export default {
       this.newTodoItem = "";
     },
 
+    validateItem() {
+      if (this.newTodoItem === '') {
+        alert('값이 없습니다.');
+        return false;
+      }
+
+      return true;
+    }
   }
 }
 </script>
