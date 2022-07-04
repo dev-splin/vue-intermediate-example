@@ -40,7 +40,7 @@ export default {
 
   methods: {
     addOneItem: function (item) {
-      let obj = {completed: false, item: item};
+      const obj = {completed: false, item: item};
       localStorage.setItem(item, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
