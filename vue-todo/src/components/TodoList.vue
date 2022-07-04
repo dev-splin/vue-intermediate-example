@@ -23,9 +23,10 @@ export default {
   created: function () {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
-        const obj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        const item = localStorage.getItem(localStorage.key(i));
+        const parsedItem = JSON.parse(item);
 
-        this.todoItems.push(obj);
+        this.todoItems.push(parsedItem);
       }
     }
   },
