@@ -27,17 +27,6 @@ export default {
     }
   },
 
-  created() {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        const item = localStorage.getItem(localStorage.key(i));
-        const parsedItem = JSON.parse(item);
-
-        this.todoItems.push(parsedItem);
-      }
-    }
-  },
-
   methods: {
     addOneItem(item) {
       const obj = {completed: false, item: item};
