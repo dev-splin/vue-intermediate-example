@@ -26,7 +26,7 @@ export default {
     Modal
   },
 
-  data: function () {
+  data() {
     return {
       newTodoItem: '',
       modalHeader: '경고!',
@@ -36,7 +36,7 @@ export default {
   },
 
   methods: {
-    addTodo: function () {
+    addTodo() {
       if(!this.validateItem()) {
         this.showModal = true;
         return;
@@ -46,7 +46,7 @@ export default {
       this.clearInput();
     },
 
-    clearInput: function () {
+    clearInput() {
       this.newTodoItem = '';
     },
 

@@ -21,13 +21,13 @@ export default {
     TodoHeader
   },
 
-  data: function () {
+  data() {
     return {
       todoItems: [],
     }
   },
 
-  created: function () {
+  created() {
     if (localStorage.length > 0) {
       for (let i = 0; i < localStorage.length; i++) {
         const item = localStorage.getItem(localStorage.key(i));
@@ -39,24 +39,24 @@ export default {
   },
 
   methods: {
-    addOneItem: function (item) {
+    addOneItem(item) {
       const obj = {completed: false, item: item};
       localStorage.setItem(item, JSON.stringify(obj));
       this.todoItems.push(obj);
     },
 
-    removeOneItem: function (item, index) {
+    removeOneItem(item, index) {
       localStorage.removeItem(item);
       this.todoItems.splice(index, 1);
     },
 
-    toggleOneItem: function (item, index) {
+    toggleOneItem(item, index) {
       this.todoItems[index].completed = !this.todoItems[index].completed;
       localStorage.removeItem(item.item);
       localStorage.setItem(item.item, JSON.stringify(item));
     },
 
-    clearAllItems: function () {
+    clearAllItems() {
       localStorage.clear();
       this.todoItems = [];
     }
