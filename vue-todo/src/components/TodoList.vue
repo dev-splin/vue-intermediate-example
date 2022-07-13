@@ -1,7 +1,7 @@
 <template>
   <div>
     <transition-group name="list" tag="ul">
-      <li v-for="(todoItem, index) in this.$store.state.todoItems" :key="todoItem.item" class="shadow">
+      <li v-for="(todoItem, index) in this.todoItems" :key="todoItem.item" class="shadow">
         <i class="checkBtn fa-solid fa-check" :class="{checkBtnCompleted: todoItem.completed}" @click="toggleComplete(todoItem, index)"></i>
         <span :class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn" @click="removeTodo(todoItem.item, index)">
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+
 export default {
   methods: {
     removeTodo(todoItem, index) {
@@ -23,6 +25,10 @@ export default {
       this.$store.commit('toggleOneItem', {todoItem, index});
     },
   },
+
+  computed: {
+    ...mapState(['todoItems'])
+  }
 }
 </script>
 
