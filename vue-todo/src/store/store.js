@@ -36,7 +36,7 @@ export const store = new Vuex.Store({
         },
 
         removeOneItem(state, todoItem) {
-            localStorage.removeItem(todoItem.todoItem);
+            localStorage.removeItem(todoItem.todoItem.item);
             state.todoItems.splice(todoItem.index, 1);
         },
 
