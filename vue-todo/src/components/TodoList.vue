@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from "vuex";
+import { mapState, mapGetters, mapMutations} from "vuex";
 
 export default {
   methods: {
@@ -24,7 +24,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['todoItems'])
+    ...mapState({todoItems: state => state.todoApp.todoItems,})
   }
 }
 </script>
